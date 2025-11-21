@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tally Prime TDL Playground</title>
+    <meta name="description" content="Generate Tally Prime TDL snippets quickly with guided forms." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/styles.css" />
+    <!-- PrismJS for syntax highlighting -->
+    <link href="https://unpkg.com/prismjs@1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+  </head>
+  <body>
+    <header class="container header">
+      <div class="brand">
+        <span class="logo">TP</span>
+        <div>
+          <h1>Tally Prime TDL Playground</h1>
+          <p class="subtitle">Generate clean TDL definitions for common customizations.</p>
+        </div>
+      </div>
+      <nav class="nav">
+        <a href="https://tallysolutions.com" target="_blank" rel="noreferrer">Tally</a>
+        <a href="https://vercel.com" target="_blank" rel="noreferrer">Vercel</a>
+        <a href="https://github.com" target="_blank" rel="noreferrer">GitHub</a>
+      </nav>
+    </header>
+
+    <main class="container layout">
+      <section class="panel left">
+        <div class="tabs" role="tablist" aria-label="TDL Generators">
+          <button class="tab active" data-tab="ledger" role="tab" aria-selected="true">Ledger</button>
+          <button class="tab" data-tab="vouchertype" role="tab" aria-selected="false">Voucher Type</button>
+          <button class="tab" data-tab="stockitem" role="tab" aria-selected="false">Stock Item</button>
+          <button class="tab" data-tab="report" role="tab" aria-selected="false">Report</button>
+        </div>
+
+        <!-- Ledger Form -->
+        <form class="form active" id="form-ledger" data-form="ledger" autocomplete="off">
+          <div class="field">
+            <label for="ledger-name">Ledger Name</label>
+            <input id="ledger-name" name="name" placeholder="Cash" required />
+          </div>
+          <div class="field">
+            <label for="ledger-group">Group</label>
+            <input id="ledger-group" name="group" placeholder="Cash-in-Hand" required />
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="ledger-currency">Currency</label>
+              <input id="ledger-currency" name="currency" placeholder="?" />
+            </div>
+            <div class="field">
+              <label for="ledger-opening">Opening Balance</label>
+              <input id="ledger-opening" name="opening" placeholder="0" type="number" step="0.01" />
+            </div>
+          </div>
+          <div class="actions">
+            <button type="button" class="btn primary" data-generate="ledger">Generate TDL</button>
+            <button type="reset" class="btn">Reset</button>
+          </div>
+        </form>
+
+        <!-- Voucher Type Form -->
+        <form class="form" id="form-vouchertype" data-form="vouchertype" autocomplete="off">
+          <div class="field">
+            <label for="vt-name">Voucher Type Name</label>
+            <input id="vt-name" name="name" placeholder="Sales GST" required />
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="vt-parent">Parent Type</label>
+              <select id="vt-parent" name="parent">
+                <option>Sales</option>
+                <option>Purchase</option>
+                <option>Payment</option>
+                <option>Receipt</option>
+                <option>Journal</option>
+                <option>Contra</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="vt-numbering">Numbering Method</label>
+              <select id="vt-numbering" name="numbering">
+                <option>Automatic</option>
+                <option>Manual</option>
+                <option>None</option>
+              </select>
+            </div>
+          </div>
+          <div class="actions">
+            <button type="button" class="btn primary" data-generate="vouchertype">Generate TDL</button>
+            <button type="reset" class="btn">Reset</button>
+          </div>
+        </form>
+
+        <!-- Stock Item Form -->
+        <form class="form" id="form-stockitem" data-form="stockitem" autocomplete="off">
+          <div class="field">
+            <label for="si-name">Stock Item Name</label>
+            <input id="si-name" name="name" placeholder="Product A" required />
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="si-group">Group</label>
+              <input id="si-group" name="group" placeholder="Primary" />
+            </div>
+            <div class="field">
+              <label for="si-unit">Unit</label>
+              <input id="si-unit" name="unit" placeholder="Nos" />
+            </div>
+          </div>
+          <div class="field">
+            <label for="si-opening">Opening Balance</label>
+            <input id="si-opening" name="opening" placeholder="0" type="number" step="0.001" />
+          </div>
+          <div class="actions">
+            <button type="button" class="btn primary" data-generate="stockitem">Generate TDL</button>
+            <button type="reset" class="btn">Reset</button>
+          </div>
+        </form>
+
+        <!-- Report Form -->
+        <form class="form" id="form-report" data-form="report" autocomplete="off">
+          <div class="field">
+            <label for="rep-name">Report Name</label>
+            <input id="rep-name" name="name" placeholder="My Custom Report" required />
+          </div>
+          <div class="field">
+            <label for="rep-title">Title</label>
+            <input id="rep-title" name="title" placeholder="Custom Report" />
+          </div>
+          <div class="field">
+            <label for="rep-collection">Collection Name</label>
+            <input id="rep-collection" name="collection" placeholder="MyCollection" />
+          </div>
+          <div class="actions">
+            <button type="button" class="btn primary" data-generate="report">Generate TDL</button>
+            <button type="reset" class="btn">Reset</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="panel right">
+        <div class="output-header">
+          <h2>Generated TDL</h2>
+          <div class="output-actions">
+            <button class="btn" id="btn-format" title="Format">Format</button>
+            <button class="btn" id="btn-copy" title="Copy to clipboard">Copy</button>
+            <button class="btn" id="btn-download" title="Download .tdl">Download .tdl</button>
+          </div>
+        </div>
+        <pre class="codewrap"><code id="code" class="language-tdl">// Generate TDL using the forms on the left.</code></pre>
+        <details class="help">
+          <summary>TDL tips</summary>
+          <ul>
+            <li>Names are identifiers; keep them unique.</li>
+            <li>Use parent groups/types that exist in the company.</li>
+            <li>Manual voucher numbering requires user input in Tally.</li>
+          </ul>
+        </details>
+      </section>
+    </main>
+
+    <footer class="container footer">
+      <p>Built for TDL enthusiasts. Deployed on Vercel.</p>
+    </footer>
+
+    <script src="https://unpkg.com/prismjs@1.29.0/components/prism-core.min.js"></script>
+    <script src="https://unpkg.com/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="/tdl-language.js"></script>
+    <script src="/app.js" type="module"></script>
+  </body>
+  </html>
+
